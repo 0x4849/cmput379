@@ -1,0 +1,40 @@
+Please run the program in full screen mode if you are testing on a terminal or else the snapshot will not look very good.
+If it is really not readable in your resolution, you might need to copy and paste it into an editor. I am really sorry about that, 
+but I tried to make the snapshot as close to the picture as much as possible, and it probably won't look good in all resolutions even with full screen terminal.
+
+Also note that the program doesn't ever loop from my testing. 
+However, it is possible that a particular process will select "continue execution" multiple times in a row, and then it will appear that the program has crashed even though it has not. 
+One time I ran the program and two processes selected "Continue Execution" over and over for about 1 minute, so that is something to watch out for.
+In theory, I guess it may be possible that the program will loop indefinitely if it continually selects that option.
+
+Also, I want to note that if there is a deadlock in the system, it will notify you, and my program will terminate for you -- it will not loop endlessy,
+so if your porgram loops for a minute or so, then it is perfectly normal unfortunately.
+
+If you want my program to go faster, then I suggest that you modify this line:
+    numSecs = 5; (Decrease this to 1 or 2 seconds for fast iteration)
+-- I set the number of seconds between requests to be 5 after initially setting it to 4.
+The reason it is initially set to 4 is because if we start at tSim1 and we want to make a request at tSim5, then only 4 seconds elapse, but thereafter, 5 seconds elapse.
+
+A note on edge cases :
+The professor told me that if we make a request for allocation of all 0 resources of each resource type, then this is not a valid request, and we should deny this request.
+I took this logic, and I also applied it to a request for releasal of all 0 resources of each type.
+If we make such a request, then we simply deny it and skip execution.
+A process is not going to say to the operating system "I would like you to satisfy this request for me : Release 0 of my resources" -- It is complete nonsense.
+
+Similarly, if a process has all 0 resources allocated, then it is not able to make a request for resources by applying the same logic.
+
+I have made these changes by following the Professor's logic, but if it is not the way that you wanted it to be, 
+then you can simply comment these lines out(which will then allow for requests for releasal of 0 resources of each resource type) :
+   
+      if (allResourcesAreZero(numRes, i * numRes, allocationArray))
+      {
+        continue;
+      }
+      
+and :
+        if (isAllZero)
+        {
+          continue;
+        }
+
+Thank you, and I apologize if my program does not run 100% the way it is supposed to.
